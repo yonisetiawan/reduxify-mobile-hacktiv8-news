@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Button, TextInput} from 'react-native'
+import { connect } from 'react-redux'
+import { GetAll } from '../../actions'
 
 const datanews = [
   {name: 'detik.com'},
@@ -9,7 +11,7 @@ const datanews = [
   {name: 'Bola.com'},
 ]
 
-export default class News extends Component {
+class News extends Component {
     constructor(){
       super()
       this.state = {
@@ -40,11 +42,10 @@ export default class News extends Component {
     }
 
     render() {
-      console.log(this.state.news);
         return (
             <View style={styles.container}>
                 <Text>
-                    News Page
+                    Halaman Berita
                 </Text>
                 <Button onPress={() => this.props.navigator.push({page: 'people'})}
                   title="Go to People Page"

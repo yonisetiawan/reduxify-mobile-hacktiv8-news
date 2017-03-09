@@ -4,29 +4,39 @@
  * @flow
  */
 
- import React, {Component} from 'react';
- import {AppRegistry, StyleSheet, Text, View, Button, Navigator} from 'react-native';
- import News from './src/components/news/index'
- import People from './src/components/people/index'
+import React, {Component} from 'react';
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    Navigator
+} from 'react-native';
+import News from './src/components/news/index'
+import People from './src/components/people/index'
+import {Provider} from 'react-redux'
+import store from './src/store/index'
 
 export default class reduxTest extends Component {
-  render() {
-      return (
-          <Navigator initialRoute={{
-              page: 'news'
-          }} renderScene={(route, navigator) => {
-              switch(route.page){
-                case 'news':
-                  return <News navigator={navigator}  />
-                case 'people':
-                  return <People navigator={navigator} />
-                default:
-                  return <News />
-              }
-          }} />
-
-      );
-  }
+    render() {
+        return (
+            <Provider store={store}>
+                <Navigator initialRoute={{
+                    page: 'news'
+                }} renderScene={(route, navigator) => {
+                    switch (route.page) {
+                        case 'news':
+                            return <News navigator={navigator}/>
+                        case 'people':
+                            return <People navigator={navigator}/>
+                        default:
+                            return <News/>
+                    }
+                }}/>
+            </Provider>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
