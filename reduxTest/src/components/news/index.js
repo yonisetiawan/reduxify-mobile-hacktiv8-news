@@ -22,18 +22,23 @@ export default class News extends Component {
         keyword: event.nativeEvent.text
       })
     }
+    // componentDidMount(){
+    //   fetch('https://hn.algolia.com/api/v1/search')
+    //   .then((response)=>{
+    //     return response.json()
+    //   })
+    //   .then((data)=>{
+    //     this.setState({
+    //       news: data.hits
+    //     })
+    //   })
+    //   .catch(err => {})
+    // }
+
     componentDidMount(){
-      fetch('https://hn.algolia.com/api/v1/search')
-      .then((response)=>{
-        return response.json()
-      })
-      .then((data)=>{
-        this.setState({
-          news: data.hits
-        })
-      })
-      .catch(err => {})
+      this.props.getAllData()
     }
+
     render() {
       console.log(this.state.news);
         return (
@@ -51,8 +56,8 @@ export default class News extends Component {
                 Daftar Media
               </Text>
               <View>
-                {this.state.news.length < 1 ? <Text>Loading...</Text> : <Text></Text>}
-                {this.state.news
+                {this.props.getNews.length < 1 ? <Text>Loading...</Text> : <Text></Text>}
+                {this.props.getNews
                   .filter((dataFilter)=>{
                     return dataFilter.title !== null && dataFilter.title !== ''})
                   .filter((dataFilter)=>{
@@ -70,6 +75,20 @@ export default class News extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) =>{
+  return {
+    getNews: state.datanews
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  getAllData: () => dispatch(GetAll())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(News)
+
+
 
 const styles = StyleSheet.create({
     container: {
