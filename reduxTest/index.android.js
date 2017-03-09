@@ -4,50 +4,48 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+ import React, {Component} from 'react';
+ import {AppRegistry, StyleSheet, Text, View, Button, Navigator} from 'react-native';
+ import News from './src/components/news/index'
+ import People from './src/components/people/index'
 
 export default class reduxTest extends Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+      return (
+          <Navigator initialRoute={{
+              page: 'news'
+          }} renderScene={(route, navigator) => {
+              switch(route.page){
+                case 'news':
+                  return <News navigator={navigator}  />
+                case 'people':
+                  return <People navigator={navigator} />
+                default:
+                  return <News />
+              }
+          }} />
+
+      );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5
+    }
 });
 
 AppRegistry.registerComponent('reduxTest', () => reduxTest);
